@@ -27,4 +27,4 @@ We use GitHub issues for [tracking bugs and feature requests](https://github.com
 
 ## Installation 
 
-Proper installation instructions coming soon. In the meantime you'll most definitely need [gx](https:/github.com/whyrusleeping/gx) to run `gx install` from `$GOPATH/github.com/qri-io/cafs`, then come back to the dt directory, run `go install`, watch it complain, see a package you're missing, then run `go get [package name]` until the complier stops complaining.
+Proper installation instructions coming soon. In the meantime you'll most definitely need [gx](https://github.com/whyrusleeping/gx) to run `gx install` from `$GOPATH/github.com/qri-io/cafs`, then come back to the dt directory, run `go install`, watch it complain, see a package you're missing, then run `go get [package name]` until the complier stops complaining.
