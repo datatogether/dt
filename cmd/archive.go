@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"time"
 
 	"github.com/datatogether/dt/core"
 	"github.com/ipfs/go-datastore"
@@ -11,7 +12,9 @@ import (
 )
 
 var (
-	archiveCmdUrlsFile string
+	archiveCmdUrlsFile    string
+	archiveCmdParallelism int
+	archiveCmdDelaySec    float32
 )
 
 // archiveCmd represents the export command
@@ -42,7 +45,9 @@ var archiveCmd = &cobra.Command{
 
 		ar := core.ArchiveRequests{Store: store}
 		p := &core.ArchiveUrlsParams{
-			Urls: urls,
+			Urls:         urls,
+			Parallelism:  archiveCmdParallelism,
+			RequestDelay: time.Duration(float32(time.Second) * archiveCmdDelaySec),
 		}
 		path := datastore.NewKey("")
 
@@ -58,4 +63,6 @@ var archiveCmd = &cobra.Command{
 func init() {
 	RootCmd.AddCommand(archiveCmd)
 	archiveCmd.Flags().StringVarP(&archiveCmdUrlsFile, "file", "f", "", "file of urls, one per line")
+	archiveCmd.Flags().IntVarP(&archiveCmdParallelism, "parallelism", "p", 5, "number of urls to fetch at once")
+	archiveCmd.Flags().Float32VarP(&archiveCmdDelaySec, "delay", "d", 1.0, "delay between request in a parallel request")
 }
