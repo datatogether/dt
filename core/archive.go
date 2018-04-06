@@ -30,7 +30,7 @@ func (r ArchiveRequests) ArchiveUrls(p *ArchiveUrlsParams, path *datastore.Key) 
 		}
 
 		rw := rewrite.NewWarcRecordRewriter(rawurl)
-		if err = archive.ArchiveUrl(httpreq, rw, &records); err != nil {
+		if records, err = archive.ArchiveUrl(httpreq, rw, records); err != nil {
 			return err
 		}
 	}
@@ -66,7 +66,7 @@ func (r ArchiveRequests) ArchiveUrl(p *ArchiveUrlParams, path *datastore.Key) er
 
 	records := warc.Records{}
 	rw := rewrite.NewWarcRecordRewriter(p.Url)
-	if err = archive.ArchiveUrl(httpreq, rw, &records); err != nil {
+	if records, err = archive.ArchiveUrl(httpreq, rw, records); err != nil {
 		return err
 	}
 
